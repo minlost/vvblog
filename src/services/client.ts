@@ -1,20 +1,16 @@
-export const getApi = () => {
-  const postLogin = async (data: any) => {
-    return apiRequest({
-      url: '/api/login',
-      method: 'POST',
-      data: data,
-      headers: {},
-    })
-  }
+import { CoreHttpClient } from '@/services/http/coreHttpClient'
+import { ApiRequestOptions } from '@/services/http/interface'
+
+const apiUrl =
+  process.env.NEXT_PUBLIC_NEXT_API_URL === undefined
+    ? ''
+    : process.env.NEXT_PUBLIC_NEXT_API_URL
+
+CoreHttpClient.initialize(apiUrl)
+export const httpClient = CoreHttpClient.getInstance()
+
+export async function apiRequest<T>(params: ApiRequestOptions<T>): Promise<T> {
+  return httpClient.apiRequest(params)
 }
 
-const apiRequest = async (url: string, method: string, data: any) => {
-  return fetch(url, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-}
+export default httpClient

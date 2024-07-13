@@ -1,22 +1,25 @@
 import { NextResponse } from 'next/server'
+import jwt from 'jsonwebtoken'
 
 const CONST_EXAMPLE_LOGIN = {
   username: 'admin',
   password: 'admin',
 }
 
+// Secret keys for JWT
+const ACCESS_TOKEN_SECRET = process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET
+const REFRESH_TOKEN_SECRET = process.env.NEXT_PUBLIC_REFRESH_TOKEN_SECRET
+
 const createAccessToken = (username: string) => {
-  return Buffer.from(`${username}:admin`).toString('base64')
+  return jwt.sign({ username }, ACCESS_TOKEN_SECRET!, { expiresIn: '15m' })
 }
 
 const createRefreshToken = (username: string) => {
-  return Buffer.from(`${username}:admin`).toString('base64')
+  return jwt.sign({ username }, REFRESH_TOKEN_SECRET!, { expiresIn: '7d' })
 }
 
 export async function POST(request: Request) {
   const { username, password } = await request.json()
-
-  console.log(username, password)
 
   if (
     username !== CONST_EXAMPLE_LOGIN.username ||
@@ -44,7 +47,6 @@ export async function POST(request: Request) {
     },
   )
 
-  // Nastavení cookies
   response.cookies.set('accessToken', accessToken, {
     httpOnly: true,
     secure: true,
@@ -58,6 +60,5 @@ export async function POST(request: Request) {
     path: '/',
     sameSite: 'strict',
   })
-
   return response
 }
