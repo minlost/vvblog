@@ -7,8 +7,8 @@ const CONST_EXAMPLE_LOGIN = {
 }
 
 // Secret keys for JWT
-const ACCESS_TOKEN_SECRET = process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET
-const REFRESH_TOKEN_SECRET = process.env.NEXT_PUBLIC_REFRESH_TOKEN_SECRET
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 
 const createAccessToken = (username: string) => {
   return jwt.sign({ username }, ACCESS_TOKEN_SECRET!, { expiresIn: '15m' })

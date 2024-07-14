@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 
-const ACCESS_TOKEN_SECRET = process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET
-const REFRESH_TOKEN_SECRET = process.env.NEXT_PUBLIC_REFRESH_TOKEN_SECRET
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 
 const verifyToken = (token: string, secret: string) => {
   try {
