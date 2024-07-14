@@ -9,7 +9,7 @@ const apiUrl =
 CoreHttpClient.initialize(apiUrl)
 export const httpClient = CoreHttpClient.getInstance()
 
-export async function apiRequest<T>(params: ApiRequestOptions<T>): Promise<T> {
+export async function apiRequest<T>(params: ApiRequestOptions): Promise<T> {
   return httpClient.apiRequest(params)
 }
 

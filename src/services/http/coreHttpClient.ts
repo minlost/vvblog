@@ -49,23 +49,17 @@ class CoreHttpClient {
       },
       body,
     )
+    if (response.redirected) {
+      window.location.href = response.url
+    }
 
-    // if (['POST', 'PUT', 'DELETE'].includes(method.toUpperCase())) {
-    //   revalidateTag(url)
-    // }
-    // if (response.headers.get('Content-Type') !== 'application/json') {
-    //   return response
-    // }
-    return response
-
-    // console.log(response, 'ttt')
-    // return this._handleResponse(response) as T
+    return this._handleResponse<T>(response)
   }
 
   private async _handleResponse<T>(res: Response): Promise<T> {
     const json = await res.json()
     if (!json) console.log(`Warning: No data returned from ${res.url}`)
-    return json
+    return { data: json }
   }
 }
 

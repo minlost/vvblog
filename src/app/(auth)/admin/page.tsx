@@ -1,22 +1,14 @@
 'use client'
 
 import { testFetch } from '@/actions/test'
+import { getApi } from '@/services/api'
 import { useRouter } from 'next/navigation'
 
 export default function AdminPage() {
   const router = useRouter()
   const handleFetch = async () => {
-    const res = await fetch('http://localhost:3000/api/testurl', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
-
-    // router.refresh()
-    const data = await res.json()
-    console.log(data)
+    const res = await getApi().test()
+    console.log('data', res)
   }
 
   return (

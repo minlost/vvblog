@@ -33,7 +33,8 @@ export const LoginForm = () => {
 
     try {
       const response = await getApi().postLogin(data)
-      if (response.ok) {
+      console.log(response)
+      if (response.data.success) {
         router.push('/admin')
       }
     } catch (error) {
